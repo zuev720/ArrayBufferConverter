@@ -1,13 +1,15 @@
 import getBuffer from './getBuffer';
 
-require('fast-text-encoding');
-
 export default class ArrayBufferConverter {
   constructor() {
     this.buffer = getBuffer();
   }
 
   load() {
-    return new TextDecoder().decode(this.buffer);
+    return new Int16Array(this.buffer);
+  }
+
+  toString() {
+    return this.load().reduce((accString, elem) => accString + String.fromCharCode(elem), '');
   }
 }
